@@ -1,6 +1,7 @@
 {
   "extras": [],
   "install_version": 8,
+  "colorscheme": "tokyonight",
   "news": {
     "NEWS.md": "10960"
   },

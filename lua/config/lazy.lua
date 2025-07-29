@@ -1,5 +1,5 @@
 -- config/lazy.lua
--- Bootstrap Lazy.nvim and load categorized plugin sets
+-- Lazy.nvim bootstrap and plugin specification
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -26,7 +26,7 @@ require("lazy").setup({
     version = false,
   },
   install = {
-    colorscheme = vim.g.colorscheme_list or { "tokyonight", "catppuccin", "gruvbox", "rose-pine", "habamax" },
+    colorscheme = { "tokyonight", "catppuccin", "gruvbox", "rose-pine", "habamax" },
   },
   checker = {
     enabled = true,
@@ -52,5 +52,5 @@ require("lazy").setup({
   },
 })
 
--- Optional: Command to cycle themes
-pcall(dofile, vim.fn.stdpath("config") .. "/lua/config/colorscheme-cycle.lua")
+-- Set the default colorscheme after plugins are loaded
+vim.cmd.colorscheme("tokyonight")
