@@ -1,15 +1,57 @@
--- config/keymaps.lua
--- Custom keybindings
+-- Keymaps are automatically loaded on the VeryLazy event
+-- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+-- Add any additional keymaps here
+local opt = vim.opt
 
-local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
+-- Encoding & UI
+opt.encoding = "utf-8"
+opt.number = true
+opt.relativenumber = true
+opt.cursorline = true
+opt.termguicolors = true
+opt.signcolumn = "yes"
+opt.scrolloff = 8
+opt.sidescrolloff = 8
 
--- Example keymaps (adjust to preference)
-map("n", "<leader>e", ":Neotree toggle<CR>", opts)
-map("n", "<leader>ff", ":Telescope find_files<CR>", opts)
-map("n", "<leader>fg", ":Telescope live_grep<CR>", opts)
-map("n", "<leader>fb", ":Telescope buffers<CR>", opts)
-map("n", "<leader>fh", ":Telescope help_tags<CR>", opts)
+-- Tabs & Indentation
+opt.expandtab = true
+opt.shiftwidth = 2
+opt.tabstop = 2
+opt.smartindent = true
 
--- LSP keymaps (set in on_attach if needed)
--- These can be added in your LSP setup files
+-- Search
+opt.ignorecase = true
+opt.smartcase = true
+opt.hlsearch = true
+opt.incsearch = true
+
+-- Undo & Backup
+opt.undofile = true
+opt.swapfile = false
+opt.backup = false
+
+-- Performance
+opt.updatetime = 300
+opt.timeoutlen = 500
+
+-- Mouse & Clipboard
+opt.mouse = "a"
+opt.clipboard = "unnamedplus"
+
+-- Split behavior
+opt.splitright = true
+opt.splitbelow = true
+
+-- Wrapping
+opt.wrap = false
+opt.linebreak = true
+
+-- UI Tweaks
+opt.showmode = false
+opt.cmdheight = 0
+opt.laststatus = 3
+opt.pumheight = 10
+opt.completeopt = "menuone,noselect"
+
+-- Shorter messages
+opt.shortmess:append("c")

@@ -1,60 +1,70 @@
 -- plugins/coding.lua
--- Productivity and coding enhancements
-
 return {
-  -- Comment toggling
+  -- Autocompletion
   {
-    "numToStr/Comment.nvim",
-    opts = {},
-  },
-
-  -- Auto pairs
-  {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    opts = {},
-  },
-
-  -- Surround text objects
-  {
-    "kylechui/nvim-surround",
-    event = "VeryLazy",
-    opts = {},
-  },
-
-  -- Git signs in gutter
-  {
-    "lewis6991/gitsigns.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {},
-  },
-
-  -- Indentation guides
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = {
-      indent = { char = "│" },
-      scope = { enabled = false },
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "onsails/lspkind.nvim",
     },
+    config = function()
+      local cmp = require("cmp")
+      local luasnip = require("luasnip")
+
+      require("luasnip.loaders.from_vscode").lazy_load()
+
+      cmp.setup({
+        formatting = {
+          format = require("lspkind").cmp_format({
+            mode = "symbol_text",
+            maxwidth = 50,
+            ellipsis_char = "...",
+          }),
+        },
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<Tab>"] = cmp.mapping.select_next_item(),
+          ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ["<C-Space>"] = cmp.mapping.complete(),
+        }),
+        sources = {
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "buffer" },
+          { name = "path" },
+        },
+      })
+    end,
   },
 
-  -- Treesitter for syntax highlighting and more
+  -- Snippet engine
   {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
+    "L3MON4D3/LuaSnip",
+    build = "make install_jsregexp",
+    opts = {},
+  },
+
+  -- Autoformatting
+  {
+    "stevearc/conform.nvim",
     opts = {
-      ensure_installed = {
-        "lua",
-        "typescript",
-        "html",
-        "css",
-        "json",
-        "bash",
+      format_on_save = {
+        timeout_ms = 3000,
+        lsp_fallback = true,
       },
-      highlight = { enable = true },
-      indent = { enable = true },
-      autotag = { enable = true },
+      formatters_by_ft = {
+        lua = { "stylua" },
+        cs = { "csharpier" },
+      },
     },
   },
 }

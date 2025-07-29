@@ -1,12 +1,29 @@
 -- plugins/ui.lua
--- UI plugins: colorschemes, statusline, file explorer, etc.
-
 return {
   -- Colorschemes
-  { "folke/tokyonight.nvim", lazy = false, priority = 1000 },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  { "ellisonleao/gruvbox.nvim", priority = 1000 },
-  { "rose-pine/neovim", name = "rose-pine", priority = 1000 },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "ellisonleao/gruvbox.nvim",
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    priority = 1000,
+    opts = {},
+  },
 
   -- Statusline
   {
@@ -19,6 +36,17 @@ return {
         component_separators = "|",
       },
     },
+  },
+
+  -- Icons
+  { "nvim-tree/nvim-web-devicons", lazy = true },
+
+  -- Notifications
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      vim.notify = require("notify")
+    end,
   },
 
   -- File Explorer
@@ -40,15 +68,4 @@ return {
       },
     },
   },
-
-  -- Notifications
-  {
-    "rcarriga/nvim-notify",
-    config = function()
-      vim.notify = require("notify")
-    end,
-  },
-
-  -- Icons (used by other plugins)
-  { "nvim-tree/nvim-web-devicons", lazy = true },
 }
